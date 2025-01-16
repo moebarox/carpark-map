@@ -70,35 +70,35 @@
 
 <template>
   <div style="height:600px; width:800px">
-    <l-map
+    <LMap
       ref="map"
       v-model:zoom="zoom"
       :center="center"
       :use-global-leaflet="false"
       @update:bounds="bounds = $event"
     >
-      <l-tile-layer
+      <LTileLayer
         url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png"
         layer-type="base"
         name="OpenStreetMap"
       />
 
       <template v-if="isInitiated">
-        <l-marker
+        <LMarker
           v-for="carpark in carparkData"
           :key="carpark.car_park_no"
           :lat-lng="carpark.coordinate"
         >
-          <l-popup>
+          <LPopup>
             <h4>{{ carpark.car_park_no }}</h4>
             <div>{{ carpark.address }}</div>
             <div v-for="info in carpark.availabilities?.carpark_info" :key="info.lot_type">
               <div>{{ info.lot_type }}: {{ info.lots_available }} / {{ info.total_lots }}</div>
             </div>
-          </l-popup>
-        </l-marker>
+          </LPopup>
+        </LMarker>
       </template>
-    </l-map>
+    </LMap>
   </div>
 </template>
 
